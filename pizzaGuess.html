@@ -16,7 +16,7 @@
 	//This is the introductory line1. It will change in future prompts based on the previous guess
 	var line1='Guess what toppings I want on my pizza! The options are below.\nI may like none of them, all of them, or anything between!\nInput your guess with the toppings separated by single spaces.';
 	var line2='Guesses Remaining: '+guessesRemaining;
-	//this function turns a string into a list
+	//this function turns a string into a list, with each element one of the words separated by spaces
 	function splitter(s){
 		var start=0;
 		var result=[];
@@ -33,7 +33,7 @@
 		}
 		return result;
 	}
-
+	//this function can check if there i a wrong topping or a missing topping
 	function wrongTopping(a,b){
 		found=false
 		for(var i=0;i<a.length;i++){
@@ -46,21 +46,27 @@
 
 
 	var solved=false
+	//event handling loop
 	while (running==true){
+		//checks if it has been solved, and closes if so
 		if (solved){
 			alert('That\'s the pizza I wanted! You win.');
 			running=false;
 		}
+		//checks if the player has run out of guesses, and closes if so
 		else if (guessesRemaining==0){
 			alert('You ran out of guesses! You couldn\'n guess what pizza I like.\n We\'re not friends anymore');
 			running=false;
 		}
 		else{
+			//asks for guess and uses splitter function to turn it into a list
 			var guess=prompt(line1+'\n'+toppingString+'\n'+line2);
 			guess=splitter(guess);
+			//checks for wrong toppings
 			if (wrongTopping(guess, answer)){
 				line1='There\'s something on that I don\'t like!'
 			}
+			//if there are no wrong toppings, checks for missing toppings
 			else if (wrongTopping(answer, guess)){
 				line1='You\'re missing a topping that I want!'
 			}
