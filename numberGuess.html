@@ -1,0 +1,35 @@
+<script>
+	var input;
+	var line1='Welcome to the guessing game! Try to guess the correct number from 1 to 100';
+	var running=true;
+	var answer=Math.floor((Math.random()*100+1));
+	var guessesLeft=7;
+	var line2='Guesses remaining: '+guessesLeft;
+	var solved=false;
+	while(running==true){
+		if (solved==true){
+			alert('You were correct! Congratulations!');
+			running=false;
+		}
+		else if (guessesLeft==0){
+			alert('Sorry, you ran out of guesses.');
+			running=false;
+		}
+		else{
+			var guess=prompt(line1+'\n\n'+line2);
+			if (guess==answer){
+				solved=true;
+			}
+			else{
+				if (guess>answer){
+					line1='Incorrect! Your guess was too high';
+				}
+				else if (guess<answer){
+					line1='Incorrect! Your guess was too low';
+				}
+				guessesLeft-=1
+				line2='Guesses remaining: '+guessesLeft;
+			}
+		}
+	}
+</script>

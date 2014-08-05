@@ -1,0 +1,34 @@
+<script>
+  function diceRoll(){
+  return [Math.floor((Math.random()*6+1)),Math.floor((Math.random()*6+1))];
+  }
+  var line1 = "Welcome to Dice Game!\n\nOdds:"
+  var oddsString = "2:    36:1\n3:    18:1\n4:    12:1\n5:    9:1\n6:    36:5\n7:    6:1\n8:    36:5\n9:    9:1\n10:   12:1\n11:   18:1\n12:   36:1"
+  var oddsList = [36,18,12,9,7.2,6,7.2,9,12,18,36]
+  var remainingMoney=100
+  var line2 = "Remaining Money: "+remainingMoney
+  var line3 = "What number do you want to bet on?"
+  var running = true
+  while(running){
+    if (remainingMoney<=0){
+      alert('You ran out of money. You lose!')
+      running = false
+    }
+    var guess = prompt(line1+'\n'+oddsString+'\n'+line2+'\n'+line3)
+    var bet = prompt('How much do you want to bet?')
+
+    var roll = diceRoll()
+    var total = roll[0]+roll[1]
+    if(guess==total){
+      var winnings = bet*oddsList[guess-2]
+      alert('Congratulations! You rolled a '+roll[0]+' and '+roll[1]+'for a total of '+total+'.\nYou win '+winnings+'!')
+      remainingMoney+=winnings
+      line2 = "Remaining Money: "+remainingMoney
+    }
+    else{
+      alert('You rolled a '+roll[0]+' and '+roll[1]+'for a total of '+total+'.\nYou guessed incorrectly and lost '+bet)
+      remainingMoney-=bet
+      line2 = "Remaining Money: "+remainingMoney
+    }
+  }
+</script>
