@@ -1,0 +1,74 @@
+<script>
+	//initialize variables
+	var toppings=['sausage','pepper','onion','octopus','mushroom','olive','tomato','pepperoni'];
+	var toppingString='sausage\npepper\nonion\noctopus\nmushroom\nolive\ntomato\npepperoni\n'
+	var answer=[];
+	//for loop selects random toppings to add to 'answer'
+	for (var i=0; i<toppings.length;i++){
+		x=Math.round(Math.random());
+		if (x==1){
+			answer.push(toppings[i]);
+		}
+	}
+	var running=true
+	var correct = false
+	var guessesRemaining=10
+	//This is the introductory line1. It will change in future prompts based on the previous guess
+	var line1='Guess what toppings I want on my pizza! The options are below.\nI may like none of them, all of them, or anything between!\nInput your guess with the toppings separated by single spaces.';
+	var line2='Guesses Remaining: '+guessesRemaining;
+	//this function turns a string into a list
+	function splitter(s){
+		var start=0;
+		var result=[];
+		var n=0;
+		while (n>-1){
+			n = s.indexOf(' ', start);
+			if (n!=-1){
+				result.push(s.substring(start,n));
+			}
+			else{
+				result.push(s.substring(start));
+			}
+			start=n+1;
+		}
+		return result;
+	}
+
+	function wrongTopping(a,b){
+		found=false
+		for(var i=0;i<a.length;i++){
+			if (b.indexOf(a[i])==-1){
+				found=true
+			}
+		}
+		return found
+	}
+
+
+	var solved=false
+	while (running==true){
+		if (solved){
+			alert('That\'s the pizza I wanted! You win.');
+			running=false;
+		}
+		else if (guessesRemaining==0){
+			alert('You ran out of guesses! You couldn\'n guess what pizza I like.\n We\'re not friends anymore');
+			running=false;
+		}
+		else{
+			var guess=prompt(line1+'\n'+toppingString+'\n'+line2);
+			guess=splitter(guess);
+			if (wrongTopping(guess, answer)){
+				line1='There\'s something on that I don\'t like!'
+			}
+			else if (wrongTopping(answer, guess)){
+				line1='You\'re missing a topping that I want!'
+			}
+			else{
+				solved=true
+			}
+			guessesRemaining-=1
+			line2="Guesses Remaining: "+guessesRemaining
+		}
+	}
+</script>
